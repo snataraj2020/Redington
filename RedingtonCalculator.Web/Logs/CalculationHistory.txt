@@ -1,0 +1,1 @@
+{"CalculationDate":"2018-09-06T22:44:53.675383+00:00","InputData":{"Probability1":0.0,"Probability2":1.0},"Output":1.0,"Success":true,"Errors":[]}

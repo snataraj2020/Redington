@@ -1,0 +1,8 @@
+version: '3.4'
+
+services:
+  redingtoncalculator.web:
+    image: ${DOCKER_REGISTRY}redingtoncalculatorweb
+    build:
+      context: .
+      dockerfile: RedingtonCalculator.Web/Dockerfile
