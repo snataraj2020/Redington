@@ -15,8 +15,8 @@ FROM build AS publish
 RUN dotnet publish RedingtonCalculator.Web.csproj -c Release -o /app
 
 FROM base AS final
-WORKDIR /app
 WORKDIR /app/Logs
+WORKDIR /app
 EXPOSE 80
 EXPOSE 2222
 COPY --from=publish /app .
