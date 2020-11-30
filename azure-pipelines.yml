@@ -13,7 +13,7 @@ variables:
 
 stages:
 - stage: Build
-  displayName: Build image
+  displayName: Build and Push Docker Image
   jobs:  
   - job: Build
     displayName: Build and Push Docker Image
@@ -29,6 +29,26 @@ stages:
         buildContext: '$(Build.Repository.LocalPath)'
         tags: |
           $(tag)
+          
+- stage: Provision Test
+  displayName: 'Terraforming to Azure'
+  dependsOn: Build
+  jobs:
+  - job: Provision
+    displayName: 'Create App Service'
+    pool:
+      vmImage: 'ubuntu-latest'
+    variables: 
+    - group: Terraform-SP
+    - task: TerraformTaskV1@0
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        commandOptions: '-false'
+        backendServiceArm: 'AzureRMConnection'
+        backendAzureRmResourceGroupName: 'TerraformStore'
+        backendAzureRmStorageAccountName: 'redingtonterraformsa'
+        backendAzureRmContainerName: 'terraformstate'
 
 - stage: Provision
   displayName: 'Terraforming to Azure'
