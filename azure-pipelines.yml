@@ -29,17 +29,6 @@ stages:
         buildContext: '$(Build.Repository.LocalPath)'
         tags: |
           $(tag)
-          
-- stage: Provision Test
-  displayName: 'Terraforming to Azure'
-  dependsOn: Build
-  jobs:
-  - job: Provision
-    displayName: 'Create App Service'
-    pool:
-      vmImage: 'ubuntu-latest'
-    variables: 
-    - group: Terraform-SP
     - task: TerraformTaskV1@0
       inputs:
         provider: 'azurerm'
