@@ -16,7 +16,7 @@ stages:
   displayName: Build image
   jobs:  
   - job: Build
-    displayName: Build
+    displayName: Build and Push Docker Image
     pool:
       vmImage: 'ubuntu-latest'
     steps:
@@ -30,3 +30,26 @@ stages:
         tags: |
           $(tag)
 
+- stage: Provision
+  displayName: Terraforming to Azure
+  dependsOn: Build
+  jobs:
+  - job: Provision
+    displayName: Provisioning App Service
+    pool:
+      vmImage: 'ubuntu-latest'
+    variables: 
+    - group: TeraformEnvVars
+    steps:
+    - script: |
+        set -e
+        terraform init -input=false
+        terraform apply -input=false -auto-approve
+      name: 'RunTerraform'
+      displayName: 'Run Terraform'
+      env:
+        ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+        ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+        ARM_TENANT_ID: $(ARM_TENANT_ID)
+        ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+        TF_VAR_imagebuild: $(tag)
