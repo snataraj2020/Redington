@@ -20,13 +20,20 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-
+    - task: Bash@3
+      inputs:
+        targetType: 'inline'
+        script: |
+          echo 'Current Path'
+          pwd
+          ls
+        workingDirectory: '$(Build.Repository.LocalPath)'
     - task: Docker@2
       inputs:
         containerRegistry: 'AzureCRConnection'
         repository: 'RedingtonCalculator'
         command: 'buildAndPush'
-        Dockerfile: 'RedingtonCalculator.Web\Dockerfile'
-        buildContext: '.'
-        tags: 
+        Dockerfile: 'src/app/RedingtonCalculator.Web/Dockerfile'
+        buildContext: '$(Build.Repository.LocalPath)'
+        tags: |
           $(tag)
