@@ -16,5 +16,8 @@ RUN dotnet publish RedingtonCalculator.Web.csproj -c Release -o /app
 
 FROM base AS final
 WORKDIR /app
+WORKDIR /app/Logs
+EXPOSE 80
+EXPOSE 2222
 COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "RedingtonCalculator.Web.dll"]
