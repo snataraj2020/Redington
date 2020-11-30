@@ -31,11 +31,11 @@ stages:
           $(tag)
 
 - stage: Provision
-  displayName: Terraforming to Azure
+  displayName: 'Terraforming to Azure'
   dependsOn: Build
   jobs:
   - job: Provision
-    displayName: Provisioning App Service
+    displayName: 'Create App Service'
     pool:
       vmImage: 'ubuntu-latest'
     variables: 
