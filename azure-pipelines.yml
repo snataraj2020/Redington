@@ -20,6 +20,17 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
+
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'AzureCRConnection'
+        repository: 'RedingtonCalculator'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
+        buildContext: '/RedingtonCalculator.Web'
+        tags: 
+          $(tag)
+
     - task: Docker@2
       inputs:
         containerRegistry: 'AzureCRConnection'
