@@ -33,7 +33,7 @@ stages:
         containerRegistry: 'AzureCRConnection'
         repository: 'RedingtonCalculator'
         command: 'buildAndPush'
-        Dockerfile: 'src/app/RedingtonCalculator.Web/Dockerfile'
+        Dockerfile: '$(Build.Repository.LocalPath)/RedingtonCalculator.Web/Dockerfile'
         buildContext: '$(Build.Repository.LocalPath)'
         tags: |
           $(tag)
