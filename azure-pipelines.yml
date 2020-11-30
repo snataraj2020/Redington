@@ -20,14 +20,6 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - task: Bash@3
-      inputs:
-        targetType: 'inline'
-        script: |
-          echo 'Current Path'
-          pwd
-          ls
-        workingDirectory: '$(Build.Repository.LocalPath)'
     - task: Docker@2
       inputs:
         containerRegistry: 'AzureCRConnection'
@@ -37,3 +29,27 @@ stages:
         buildContext: '$(Build.Repository.LocalPath)'
         tags: |
           $(tag)
+
+- stage: Provision
+  displayName: 'Terraforming on Azure'
+  dependsOn: Build
+  jobs:
+  - job: Provision
+    displayName: 'Provisioning App Service'
+    pool:
+      vmImage: 'ubuntu-latest'
+    variables: 
+    - group: TeraformEnvVars
+    steps:
+    - script: |
+        set -e
+        terraform init -input=false
+        terraform apply -input=false -auto-approve
+      name: 'RunTerraform'
+      displayName: 'Run Terraform'
+      env:
+        ARM_CLIENT_ID: $(ARM_CLIENT_ID)
+        ARM_CLIENT_SECRET: $(ARM_CLIENT_SECRET)
+        ARM_TENANT_ID: $(ARM_TENANT_ID)
+        ARM_SUBSCRIPTION_ID: $(ARM_SUBSCRIPTION_ID)
+        TF_VAR_imagebuild: $(tag)
