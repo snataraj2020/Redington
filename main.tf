@@ -3,10 +3,12 @@ terraform {
   required_version = ">= 0.12"
 }
 
-# Configure the Azure provider
 provider "azurerm" {
-  environment = "public"
-  version     = ">= 2.15.0"
+  version = "=2.5.0"
+  subscription_id = var.ARM_SUBSCRIPTION_ID
+  client_id       = var.ARM_CLINET_ID
+  client_secret   = var.ARM_CLINET_SECRET 
+  tenant_id       = var.ARM_TENANT_ID
   features {}
 }
 
@@ -16,9 +18,9 @@ terraform {
         storage_account_name = "redingtonterraformsa"
         container_name       = "terraformstate"
         key                  = "terraform.tfstate"
-		    use_msi              = true
-		    subscription_id      = "var.ARM_SUBSCRIPTION_ID"
-		    tenant_id            = "var.ARM_TENANT_ID"		
+	use_msi              = true
+	subscription_id      = "var.ARM_SUBSCRIPTION_ID"
+	tenant_id            = "var.ARM_TENANT_ID"		
     }
 }
 
