@@ -37,6 +37,12 @@ stages:
     variables: 
     - group: Terraform-SP
     steps:
+    - task: AzureCLI@2
+      inputs:
+        azureSubscription: 'AzureRMConnection'
+        scriptType: 'bash'
+        scriptLocation: 'inlineScript'
+        inlineScript: 'az pipelines variable-group variable list --group-id 1 --output table'
     - script: |
         set -e
         
