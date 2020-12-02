@@ -49,8 +49,8 @@ resource "azurerm_app_service" "tfrg-as" {
   app_settings {
     WEBSITES_ENABLE_APP_SERVICE_STORAGE = false
     DOCKER_REGISTRY_SERVER_URL      = "https://redingtoncr.azurecr.io"
-    DOCKER_REGISTRY_SERVER_USERNAME = "${var.ARM_CLINET_ID}"
-    DOCKER_REGISTRY_SERVER_PASSWORD = "${var.ARM_CLINET_SECRET}"
+    DOCKER_REGISTRY_SERVER_USERNAME = "var.ARM_CLINET_ID"
+    DOCKER_REGISTRY_SERVER_PASSWORD = "var.ARM_CLINET_SECRET"
   }
   site_config {
     linux_fx_version = "DOCKER|redingtoncalculator:${var.imagebuild}" 
