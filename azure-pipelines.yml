@@ -29,15 +29,6 @@ stages:
         buildContext: '$(Build.Repository.LocalPath)'
         tags: |
           $(tag)
-    - task: TerraformTaskV1@0
-      inputs:
-        provider: 'azurerm'
-        command: 'init'
-        commandOptions: '-false'
-        backendServiceArm: 'AzureRMConnection'
-        backendAzureRmResourceGroupName: 'TerraformStore'
-        backendAzureRmStorageAccountName: 'redingtonterraformsa'
-        backendAzureRmContainerName: 'terraformstate'
 
 - stage: Provision
   displayName: 'Terraforming to Azure'
