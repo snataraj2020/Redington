@@ -12,7 +12,7 @@ provider "azurerm" {
 
 terraform {
     backend "azurerm" {
-        resource_group_name  = "redington"
+        resource_group_name  = "Redington"
         storage_account_name = "redingtonterraformsa"
         container_name       = "terraformstate"
         key                  = "terraform.tfstate"
