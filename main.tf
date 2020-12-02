@@ -10,6 +10,18 @@ provider "azurerm" {
   features {}
 }
 
+terraform {
+    backend "azurerm" {
+        resource_group_name  = "Redington"
+        storage_account_name = "redingtonterraformsa"
+        container_name       = "terraformstate"
+        key                  = "terraform.tfstate"
+		    use_msi              = true
+		    subscription_id      = "var.ARM_SUBSCRIPTION_ID"
+		    tenant_id            = "var.ARM_TENANT_ID"		
+    }
+}
+
 variable "imagebuild" {
   type        = string
   description = "Latest Image Build"
