@@ -41,6 +41,15 @@ stages:
     variables: 
     - group: Terraform-SP
     steps:
+    - task: TerraformTaskV1@0
+      inputs:
+        provider: 'azurerm'
+        command: 'init'
+        backendServiceArm: 'AzureRMConnection'
+        backendAzureRmResourceGroupName: 'Redington'
+        backendAzureRmStorageAccountName: 'redingtonterraformsa'
+        backendAzureRmContainerName: 'terraformstate'
+        
     - script: |
         set -e
         terraform init -input=false
