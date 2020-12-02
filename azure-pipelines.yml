@@ -38,6 +38,14 @@ stages:
     - group: Terraform-SP
     steps:
     - script: |
+        echo $(ARM_CLIENT_ID)
+        echo $(ARM_CLIENT_SECRET)
+        echo $(ARM_TENANT_ID)
+        echo $(ARM_SUBSCRIPTION_ID)
+        echo $(tag)
+        
+
+    - script: |
         set -e
         
         terraform init -input=false
