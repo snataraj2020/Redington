@@ -18,6 +18,5 @@ FROM base AS final
 WORKDIR /app/Logs
 WORKDIR /app
 EXPOSE 80
-EXPOSE 2222
 COPY --from=publish /app .
 ENTRYPOINT ["dotnet", "RedingtonCalculator.Web.dll"]

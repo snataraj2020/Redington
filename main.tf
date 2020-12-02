@@ -30,7 +30,7 @@ resource "azurerm_resource_group" "tfrg_test" {
 }
 
 resource "azurerm_app_service_plan" "tfrg-asp" {
-  name                = "RedingtonASP"
+  name                = "RedingtonASPLinux"
   location            = azurerm_resource_group.tfrg_test.location
   resource_group_name = azurerm_resource_group.tfrg_test.name
   kind                = "Linux"
@@ -42,7 +42,7 @@ resource "azurerm_app_service_plan" "tfrg-asp" {
 }
 
 resource "azurerm_app_service" "tfrg-as" {
-  name                = "RedingtonCalculator"
+  name                = "RedingtonCalculatorLinux"
   location            = azurerm_resource_group.tfrg_test.location
   resource_group_name = azurerm_resource_group.tfrg_test.name
   app_service_plan_id = azurerm_app_service_plan.tfrg-asp.id
