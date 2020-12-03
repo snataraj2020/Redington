@@ -37,6 +37,18 @@ stages:
     variables: 
     - group: Terraform-SP
     steps:
+    
+    - task: TerraformCLI@0
+      inputs:
+        command: 'init'
+        backendType: 'azurerm'
+        backendServiceArm: 'RedingtonRG'
+        backendAzureRmResourceGroupName: 'TerraformBlobStore'
+        backendAzureRmStorageAccountName: 'terraformblobstore'
+        backendAzureRmContainerName: 'terraformstate'
+        backendAzureRmKey: 'E9z5h7wDL+lTVwsZ3OHZFJ8P2o7vcUDDg4IwN7Da5OigOuNezRK30F3vY9UVoD5QcEwWNY6Ray3oOGwY7N0G1Q=='
+        allowTelemetryCollection: true
+    
     - script: |
         set -e
 
